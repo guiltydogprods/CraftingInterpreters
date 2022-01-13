@@ -4,8 +4,14 @@ class AstPrinter implements Expr.Visitor<String> {
     String print(Expr expr) {
         return expr.accept(this);
     }
+
     @Override
-    public  String visitBinaryExpr(Expr.Binary expr) {
+    public String visitAssignExpr(Expr.Assign expr) {
+        return null; // TODO stub
+    }
+
+    @Override
+    public String visitBinaryExpr(Expr.Binary expr) {
         return parenthesize(expr.operator.lexeme, expr.left, expr.right);
     }
 
