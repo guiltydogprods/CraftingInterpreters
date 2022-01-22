@@ -186,6 +186,15 @@ class Interpreter implements Expr.Visitor<Object>,
     }
 
     @Override
+    public Void visitReturnStmt(Stmt.Return stmt) {
+        Object value = null;
+        if (stmt.value != null)
+            value = evaluate(stmt.value);
+
+        throw new Return(value);
+    }
+
+    @Override
     public  Void visitVarStmt(Stmt.Var stmt) {
         Object value = null;
         if (stmt.initializer != null) {
@@ -232,7 +241,7 @@ class Interpreter implements Expr.Visitor<Object>,
                 return (double)left < (double)right;
             case LESS_EQUAL:
                 checkNumberOperands(expr.operator, left, right);
-                return (double)left <- (double)right;
+                return (double)left <= (double)right;
             case MINUS:
                 checkNumberOperands(expr.operator, left, right);
                 return (double)left - (double)right;
