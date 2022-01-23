@@ -42,6 +42,94 @@ class Interpreter implements Expr.Visitor<Object>,
     }
 
     @Override
+    public Object visitAssignExpr(Expr.Assign expr) {
+        Object value = evaluate(expr.value);
+        Integer distance = locals.get(expr);
+        if (distance != null) {
+            environment.assignAt(distance, expr.name, value);
+        } else {
+            globals.assign(expr.name, value);
+        }
+        return value;
+    }
+
+    @Override
+    public Object visitBinaryExpr(Expr.Binary expr) {
+        Object left = evaluate(expr.left);
+        Object right = evaluate(expr.right);
+
+        switch (expr.operator.type) {
+            case BANG_EQUAL:
+                return !isEqual(left, right);
+            case EQUAL_EQUAL:
+                return isEqual(left, right);
+            case GREATER:
+                checkNumberOperands(expr.operator, left, right);
+                return (double)left > (double)right;
+            case GREATER_EQUAL:
+                checkNumberOperands(expr.operator, left, right);
+                return (double)left >= (double)right;
+            case LESS:
+                checkNumberOperands(expr.operator, left, right);
+                return (double)left < (double)right;
+            case LESS_EQUAL:
+                checkNumberOperands(expr.operator, left, right);
+                return (double)left <= (double)right;
+            case MINUS:
+                checkNumberOperands(expr.operator, left, right);
+                return (double)left - (double)right;
+            case PLUS:
+                if (left instanceof Double && right instanceof Double) {
+                    return (double)left + (double)right;
+                }
+
+                if (left instanceof String && right instanceof String) {
+                    return (String)left + (String)right;
+                }
+                throw new RuntimeError(expr.operator, "Operands must be two numbers or two strings.");
+            case SLASH:
+                checkNumberOperands(expr.operator, left, right);
+                return (double)left / (double)right;
+            case STAR:
+                checkNumberOperands(expr.operator, left, right);
+                return (double)left * (double)right;
+        }
+
+        // Unreachable.
+        return null;
+    }
+
+    @Override
+    public Object visitCallExpr(Expr.Call expr) {
+        Object callee = evaluate(expr.callee);
+
+        List<Object> arguments = new ArrayList<>();
+        for (Expr argument : expr.arguments) {
+            arguments.add(evaluate(argument));
+        }
+
+        if (!(callee instanceof LoxCallable)) {
+            throw new RuntimeError(expr.paren, "Can only call functions and classes.");
+        }
+
+        LoxCallable function = (LoxCallable)callee;
+        if (arguments.size() != function.arity()) {
+            throw new RuntimeError(expr.paren, "Expected " + function.arity() + " arguments but got " + arguments.size() + ".");
+        }
+        return function.call(this, arguments);
+    }
+
+    @Override
+    public Object visitGetExpr(Expr.Get expr) {
+        Object object = evaluate(expr.object);
+        if (object instanceof LoxInstance) {
+            return ((LoxInstance) object).get(expr.name);
+        }
+
+        throw new RuntimeError(expr.name, "Only instances have properties.");
+    }
+
+    @Override
     public Object visitLiteralExpr(Expr.Literal expr) {
         return expr.value;
     }
@@ -57,6 +145,24 @@ class Interpreter implements Expr.Visitor<Object>,
         }
 
         return evaluate(expr.right);
+    }
+
+    @Override
+    public Object visitSetExpr(Expr.Set expr) {
+        Object object = evaluate(expr.object);
+
+        if (!(object instanceof LoxInstance)) {
+            throw new RuntimeError(expr.name, "Only instances have fields.");
+        }
+
+        Object value = evaluate(expr.value);
+        ((LoxInstance)object).set(expr.name, value);
+        return value;
+    }
+
+    @Override
+    public Object visitThisExpr(Expr.This expr) {
+        return lookupVariable(expr.keyword, expr);
     }
 
     @Override
@@ -172,6 +278,19 @@ class Interpreter implements Expr.Visitor<Object>,
     }
 
     @Override
+    public Void visitClassStmt(Stmt.Class stmt) {
+        environment.define(stmt.name.lexeme, null);
+        Map<String, LoxFunction> methods = new HashMap<>();
+        for (Stmt.Function method : stmt.methods) {
+            LoxFunction function = new LoxFunction(method, environment, method.name.lexeme.equals("init"));
+            methods.put(method.name.lexeme, function);
+        }
+        LoxClass klass = new LoxClass(stmt.name.lexeme, methods);
+        environment.assign(stmt.name, klass);
+        return null;
+    }
+
+    @Override
     public Void visitExpressionStmt(Stmt.Expression stmt) {
         evaluate(stmt.expression);
         return null;
@@ -179,7 +298,7 @@ class Interpreter implements Expr.Visitor<Object>,
 
     @Override
     public Void visitFunctionStmt(Stmt.Function stmt) {
-        LoxFunction function = new LoxFunction(stmt, environment);
+        LoxFunction function = new LoxFunction(stmt, environment, false);
         environment.define(stmt.name.lexeme, function);
         return null;
     }
@@ -227,83 +346,5 @@ class Interpreter implements Expr.Visitor<Object>,
             execute(stmt.body);
         }
         return null;
-    }
-
-    @Override
-    public Object visitAssignExpr(Expr.Assign expr) {
-        Object value = evaluate(expr.value);
-        Integer distance = locals.get(expr);
-        if (distance != null) {
-            environment.assignAt(distance, expr.name, value);
-        } else {
-            globals.assign(expr.name, value);
-        }
-        return value;
-    }
-
-    @Override
-    public Object visitBinaryExpr(Expr.Binary expr) {
-        Object left = evaluate(expr.left);
-        Object right = evaluate(expr.right);
-
-        switch (expr.operator.type) {
-            case BANG_EQUAL:
-                return !isEqual(left, right);
-            case EQUAL_EQUAL:
-                return isEqual(left, right);
-            case GREATER:
-                checkNumberOperands(expr.operator, left, right);
-                return (double)left > (double)right;
-            case GREATER_EQUAL:
-                checkNumberOperands(expr.operator, left, right);
-                return (double)left >= (double)right;
-            case LESS:
-                checkNumberOperands(expr.operator, left, right);
-                return (double)left < (double)right;
-            case LESS_EQUAL:
-                checkNumberOperands(expr.operator, left, right);
-                return (double)left <= (double)right;
-            case MINUS:
-                checkNumberOperands(expr.operator, left, right);
-                return (double)left - (double)right;
-            case PLUS:
-                if (left instanceof Double && right instanceof Double) {
-                    return (double)left + (double)right;
-                }
-
-                if (left instanceof String && right instanceof String) {
-                    return (String)left + (String)right;
-                }
-                throw new RuntimeError(expr.operator, "Operands must be two numbers or two strings.");
-            case SLASH:
-                checkNumberOperands(expr.operator, left, right);
-                return (double)left / (double)right;
-            case STAR:
-                checkNumberOperands(expr.operator, left, right);
-                return (double)left * (double)right;
-        }
-
-        // Unreachable.
-        return null;
-    }
-
-    @Override
-    public Object visitCallExpr(Expr.Call expr) {
-        Object callee = evaluate(expr.callee);
-
-        List<Object> arguments = new ArrayList<>();
-        for (Expr argument : expr.arguments) {
-            arguments.add(evaluate(argument));
-        }
-
-        if (!(callee instanceof LoxCallable)) {
-            throw new RuntimeError(expr.paren, "Can only call functions and classes.");
-        }
-
-        LoxCallable function = (LoxCallable)callee;
-        if (arguments.size() != function.arity()) {
-            throw new RuntimeError(expr.paren, "Expected " + function.arity() + " arguments but got " + arguments.size() + ".");
-        }
-        return function.call(this, arguments);
     }
 }
