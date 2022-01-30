@@ -13,6 +13,8 @@
 		7E7211AE27A4A3FB002BE814 /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E7211AD27A4A3FB002BE814 /* debug.c */; };
 		7E7211B127A4AA82002BE814 /* value.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E7211B027A4AA82002BE814 /* value.c */; };
 		7E7211B427A5E15F002BE814 /* vm.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E7211B327A5E15F002BE814 /* vm.c */; };
+		7E7211B727A6061E002BE814 /* compiler.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E7211B627A6061E002BE814 /* compiler.c */; };
+		7E7211BA27A60746002BE814 /* scanner.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E7211B927A60746002BE814 /* scanner.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,6 +43,10 @@
 		7E7211B027A4AA82002BE814 /* value.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = value.c; sourceTree = "<group>"; };
 		7E7211B227A5E15F002BE814 /* vm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vm.h; sourceTree = "<group>"; };
 		7E7211B327A5E15F002BE814 /* vm.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vm.c; sourceTree = "<group>"; };
+		7E7211B527A6061E002BE814 /* compiler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = compiler.h; sourceTree = "<group>"; };
+		7E7211B627A6061E002BE814 /* compiler.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = compiler.c; sourceTree = "<group>"; };
+		7E7211B827A60746002BE814 /* scanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scanner.h; sourceTree = "<group>"; };
+		7E7211B927A60746002BE814 /* scanner.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = scanner.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +84,10 @@
 				7E7211AD27A4A3FB002BE814 /* debug.c */,
 				7E7211B227A5E15F002BE814 /* vm.h */,
 				7E7211B327A5E15F002BE814 /* vm.c */,
+				7E7211B527A6061E002BE814 /* compiler.h */,
+				7E7211B627A6061E002BE814 /* compiler.c */,
+				7E7211B827A60746002BE814 /* scanner.h */,
+				7E7211B927A60746002BE814 /* scanner.c */,
 				7E7211A527A491B5002BE814 /* common.h */,
 				7E7211A627A49249002BE814 /* chunk.h */,
 				7E7211A727A498BF002BE814 /* chunk.c */,
@@ -150,6 +160,8 @@
 				7E72119F27A49102002BE814 /* main.c in Sources */,
 				7E7211AB27A49E75002BE814 /* memory.c in Sources */,
 				7E7211A827A498BF002BE814 /* chunk.c in Sources */,
+				7E7211BA27A60746002BE814 /* scanner.c in Sources */,
+				7E7211B727A6061E002BE814 /* compiler.c in Sources */,
 				7E7211B427A5E15F002BE814 /* vm.c in Sources */,
 				7E7211AE27A4A3FB002BE814 /* debug.c in Sources */,
 			);
