@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E5C445327AB2099001E7C8D /* object.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E5C445227AB2099001E7C8D /* object.c */; };
 		7E72119F27A49102002BE814 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E72119E27A49102002BE814 /* main.c */; };
 		7E7211A827A498BF002BE814 /* chunk.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E7211A727A498BF002BE814 /* chunk.c */; };
 		7E7211AB27A49E75002BE814 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E7211AA27A49E75002BE814 /* memory.c */; };
@@ -30,6 +31,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7E5C445127AB1C0C001E7C8D /* object.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = object.h; sourceTree = "<group>"; };
+		7E5C445227AB2099001E7C8D /* object.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = object.c; sourceTree = "<group>"; };
 		7E72119B27A49102002BE814 /* clox */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = clox; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E72119E27A49102002BE814 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		7E7211A527A491B5002BE814 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
@@ -93,6 +96,8 @@
 				7E7211A727A498BF002BE814 /* chunk.c */,
 				7E7211AF27A4A8DD002BE814 /* value.h */,
 				7E7211B027A4AA82002BE814 /* value.c */,
+				7E5C445127AB1C0C001E7C8D /* object.h */,
+				7E5C445227AB2099001E7C8D /* object.c */,
 				7E7211A927A49C9F002BE814 /* memory.h */,
 				7E7211AA27A49E75002BE814 /* memory.c */,
 			);
@@ -159,6 +164,7 @@
 				7E7211B127A4AA82002BE814 /* value.c in Sources */,
 				7E72119F27A49102002BE814 /* main.c in Sources */,
 				7E7211AB27A49E75002BE814 /* memory.c in Sources */,
+				7E5C445327AB2099001E7C8D /* object.c in Sources */,
 				7E7211A827A498BF002BE814 /* chunk.c in Sources */,
 				7E7211BA27A60746002BE814 /* scanner.c in Sources */,
 				7E7211B727A6061E002BE814 /* compiler.c in Sources */,
