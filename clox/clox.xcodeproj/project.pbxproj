@@ -16,6 +16,7 @@
 		7E7211B427A5E15F002BE814 /* vm.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E7211B327A5E15F002BE814 /* vm.c */; };
 		7E7211B727A6061E002BE814 /* compiler.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E7211B627A6061E002BE814 /* compiler.c */; };
 		7E7211BA27A60746002BE814 /* scanner.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E7211B927A60746002BE814 /* scanner.c */; };
+		7E8A591527AF288300007754 /* table.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E8A591427AF288300007754 /* table.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -50,6 +51,8 @@
 		7E7211B627A6061E002BE814 /* compiler.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = compiler.c; sourceTree = "<group>"; };
 		7E7211B827A60746002BE814 /* scanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scanner.h; sourceTree = "<group>"; };
 		7E7211B927A60746002BE814 /* scanner.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = scanner.c; sourceTree = "<group>"; };
+		7E8A591327AF288300007754 /* table.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = table.h; sourceTree = "<group>"; };
+		7E8A591427AF288300007754 /* table.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = table.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +103,8 @@
 				7E5C445227AB2099001E7C8D /* object.c */,
 				7E7211A927A49C9F002BE814 /* memory.h */,
 				7E7211AA27A49E75002BE814 /* memory.c */,
+				7E8A591327AF288300007754 /* table.h */,
+				7E8A591427AF288300007754 /* table.c */,
 			);
 			path = clox;
 			sourceTree = "<group>";
@@ -161,6 +166,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E8A591527AF288300007754 /* table.c in Sources */,
 				7E7211B127A4AA82002BE814 /* value.c in Sources */,
 				7E72119F27A49102002BE814 /* main.c in Sources */,
 				7E7211AB27A49E75002BE814 /* memory.c in Sources */,
