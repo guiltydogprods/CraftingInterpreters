@@ -63,7 +63,7 @@ int32_t disassembleInstruction(Chunk* chunk, int32_t offset) {
 		case OP_GET_GLOBAL:
 			return constantInstruction("OP_GET_GLOBAL", chunk, offset);
 		case OP_DEFINE_GLOBAL:
-			return constantInstruction("OP_DEFINe_GLOBAL", chunk, offset);
+			return constantInstruction("OP_DEFINE_GLOBAL", chunk, offset);
 		case OP_SET_GLOBAL:
 			return constantInstruction("OP_SET_GLOBAL", chunk, offset);
 		case OP_EQUAL:
@@ -92,6 +92,8 @@ int32_t disassembleInstruction(Chunk* chunk, int32_t offset) {
 			return jumpInstruction("OP_JUMP_IF_FALSE", 1, chunk, offset);
 		case OP_LOOP:
 			return jumpInstruction("OP_LOOP", -1, chunk, offset);
+		case OP_CALL:
+			return byteInstruction("OP_CALL", chunk, offset);
 		case OP_RETURN:
 			return simpleInstruction("OP_RETURN", offset);
 		default:
