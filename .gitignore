@@ -2,6 +2,9 @@
 Makefile
 bin/
 obj/
+*.sln
+*.vcxproj
+*.vcxproj.user
 *.xcodeproj
 *.class
 *.xcworkspace
