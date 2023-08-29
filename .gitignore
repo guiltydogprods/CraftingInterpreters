@@ -2,6 +2,8 @@
 Makefile
 bin/
 obj/
+*.xcodeproj
 *.class
+*.xcworkspace
 *.xcuserdata/
 *.xcuserstate
